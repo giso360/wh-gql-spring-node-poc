@@ -1,0 +1,50 @@
+[
+  {
+    "code": "HILTON_A",
+    "name": "HILTON ATHENS",
+    "type": "Leisure Chain",
+    "rating": 5,
+    "propertyUnits": [
+      {
+        "id": "410c4647-1687-41ab-84fa-589b0bf4d42b",
+        "code": "VILLA_A",
+        "name": "Black Room",
+        "unitType": "villa",
+        "minimumPersons": 2,
+        "maximumPersons": 4
+      },
+      {
+        "id": "6b82c958-a799-4818-aa96-b7a03325262b",
+        "code": "APA_A",
+        "name": "Blue Room",
+        "unitType": "apartment",
+        "minimumPersons": 2,
+        "maximumPersons": 3
+      }
+    ]
+  },
+  {
+    "code": "HILTON_B",
+    "name": "HILTON AIGINA",
+    "type": "Standalone",
+    "rating": 4,
+    "propertyUnits": [
+      {
+        "id": "8164d4ed-b143-4520-94a7-9f75fc6347d4",
+        "code": "VILLA_AA",
+        "name": "10 Forward",
+        "unitType": "villa",
+        "minimumPersons": 4,
+        "maximumPersons": 10
+      },
+      {
+        "id": "a80e6706-4ce7-43fa-bd91-032fb35b2f24",
+        "code": "ROOM_C",
+        "name": "Matchbox Room",
+        "unitType": "room",
+        "minimumPersons": 1,
+        "maximumPersons": 2
+      }
+    ]
+  }
+]

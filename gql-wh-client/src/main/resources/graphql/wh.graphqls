@@ -1,0 +1,36 @@
+type Property {
+    code: String!
+    name: String!
+    type: String
+    rating: Int
+    unitTypes: [PropertyUnitType]!
+}
+
+type PropertyUnitType implements Node {
+    id: ID!
+    # Short identifier code
+    code: String!
+    # Translatable text
+    name: String!
+    # Unit type, e.g. room, villa, apartment etc.
+    unitType: String!
+    minimumPersons: Int!
+    maximumPersons: Int!
+}
+
+type ReportingObject {
+    count: Int!
+}
+
+input PropertyUnitTypesInput {
+    unitCode: String
+    unitType: String
+    name: String
+    # Matches unit types with minimumPersons >= input
+    minimumPersons: Int
+    # Matches unit types with maximumPersons <= input
+    maximumPersons: Int
+}
+
+
+
