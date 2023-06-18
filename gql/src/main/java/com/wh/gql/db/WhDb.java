@@ -14,11 +14,16 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.function.Predicate;
 
 @Slf4j
 @Component
 public class WhDb implements WhRepository {
+
+    // ArrayBlockingQueue data structure to enable push notification to @SubscriptionMapping handler method
+    // using the non-blocking offer() and blocking take() methods of the concurrent data structures
+    public static ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<>(1);
 
     private static final Predicate<String> ILLEGAL_STRING_INPUT = s -> s == null || s.isBlank() || s.isEmpty();
 
@@ -93,6 +98,7 @@ public class WhDb implements WhRepository {
                 break;
             }
         }
+        queue.offer("DELTA");
     }
 
     @Override
@@ -108,6 +114,7 @@ public class WhDb implements WhRepository {
                 }
             }
         }
+        queue.offer("DELTA");
     }
 
     @Override

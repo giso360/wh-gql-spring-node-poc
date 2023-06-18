@@ -60,7 +60,7 @@ public class PropertyController {
     @MutationMapping
     public DataFetcherResult<PropertyUnit> addPropertyUnitToProperty(@Argument PropertyUnitInput propertyUnitInput,
                                                                      @Argument String propertyCode)
-                                                                    throws IOException, IllegalAccessException {
+            throws IOException, IllegalAccessException {
         log.info("ADD GQL invoked");
         try {
             PropertyUnit propertyUnit = WhDb.getInstance().addPropertyUnitForProperty(propertyUnitInput, propertyCode).get();
@@ -80,7 +80,7 @@ public class PropertyController {
 
     @MutationMapping
     public DataFetcherResult<PropertyUnit> editPropertyUnitOfProperty(@Argument PropertyUnitInput propertyUnitInput,
-                                                                     @Argument String propertyCode)
+                                                                      @Argument String propertyCode)
             throws IOException, IllegalAccessException {
         try {
             PropertyUnit propertyUnit = WhDb.getInstance().editPropertyUnitForProperty(propertyUnitInput, propertyCode).get();
@@ -98,7 +98,7 @@ public class PropertyController {
 
     @MutationMapping
     public DataFetcherResult<String> deletePropertyUnitOfProperty(@Argument String propertyUnitCode,
-                                                                      @Argument String propertyCode) throws IOException {
+                                                                  @Argument String propertyCode) throws IOException {
         try {
             WhDb.getInstance().deletePropertyUnitByUnitCodeAndPropertyCode(propertyUnitCode, propertyCode);
             return DataFetcherResult.<String>newResult().data("SUCCESS").build();
@@ -113,14 +113,25 @@ public class PropertyController {
     }
 
     @SubscriptionMapping("livePropertyCountForAll")
-    public Flux<ReportingObject> livePropertyCountForAll(){
+    public Flux<ReportingObject> livePropertyCountForAll() {
         return Flux.fromStream(
                 Stream.generate(() -> {
+
+                    // METHOD 1: Send a pulse every second
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+
+
+                    // METHOD 2: Send ws message upon save/edit/delete when queue.take() unblocks
                     try {
-                        Thread.sleep(1000);
+                        String taken = WhDb.queue.take();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+
                     try {
                         return WhDb.getInstance().getAllWhPropertyUnits();
                     } catch (IOException e) {
